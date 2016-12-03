@@ -27,17 +27,18 @@ PANDA, but are required by the plugins shipping with it.
 Subversion is used to retrieve the source of LLVM.
 
 ```
-sudo apt-get install build-essential 
-sudo apt-get build-dep qemu
-sudo apt-get install nasm
-sudo apt-get install libssl-dev
-sudo apt-get install libpcap-dev
-sudo apt-get install subversion
+sudo apt-get -y install build-essential 
+sudo apt-get -y build-dep qemu
+sudo apt-get -y install nasm
+sudo apt-get -y install libssl-dev
+sudo apt-get -y install libpcap-dev
+sudo apt-get -y install subversion
 sudo apt-get -y install curl
 sudo apt-get -y install autoconf
 sudo apt-get -y install libtool
 sudo apt-get -y install python-pip
 sudo apt-get -y install libelf-dev
+sudo apt-get -y install libglib2.0-dev zlib1g-dev
 ```
 
 ## Compiled prerequisites
@@ -91,6 +92,7 @@ For a **release build**, use the following commands:
 ```
 cd llvm
 ./configure --enable-optimized --disable-assertions --enable-targets=x86 && REQUIRES_RTTI=1 make -j $(nproc)
+sudo make install
 cd -
 ```
 
@@ -103,7 +105,7 @@ on your system.
 
 ```
 cd ~/software
-svn checkout http://distorm.googlecode.com/svn/trunk/ distorm
+git clone https://github.com/gdabah/distorm.git
 cd distorm/make/linux
 make
 sudo make install
@@ -119,9 +121,8 @@ provide source level introspection to PANDA plugins.
 
 ```
 wget http://www.prevanders.net/libdwarf-20160507.tar.gz --no-check-certificate 
-tar -xzvf libdwarf-20151114.tar.gz
+tar -xzvf libdwarf-20160507.tar.gz
 cd dwarf-20160507
-progress "Installing libdwarf..."
 ./configure --enable-shared
 make
 sudo cp libdwarf/libdwarf.h /usr/local/include
